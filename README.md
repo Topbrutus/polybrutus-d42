@@ -25,6 +25,15 @@ Both scripts emit identical SHA-256 for deterministic `results/certificate_d42.j
 
 **Important lineage packaging change:** The complete immutable D41 scientific tag, including all its ancestors, is included **byte-for-byte** as `prior/d41/frozen_scientific_tag_v0.1.0.zip` (SHA-256 `d1abebf926052caaf171ecb19a81e23ac45926ae8686a87e42a5cf2a2bfc039e`; 494 ZIP entries). Its original `results/certificate_d41.json` is also extracted as `prior/d41/results/certificate_d41.json`, verified byte-identical to the ZIP entry. This avoids the Windows MAX_PATH failure of deeply recursively expanded `prior/` directories, without omitting or changing any ancestor source. See [archive provenance](prior/d41/ARCHIVE_PROVENANCE.md). There are no Git submodules or nested repositories.
 
+## Official DOI and verified public release
+
+- **Official DOI:** [10.5281/zenodo.24414577](https://doi.org/10.5281/zenodo.24414577).
+- **Public Zenodo record:** https://zenodo.org/records/24414577, all 3 public files checked for exact sizes and MD5 against the original bytes.
+- **Frozen science tag:** [v0.1.0](https://github.com/Topbrutus/polybrutus-d42/tree/v0.1.0), source commit `cba477c53ccdadaed888730ee0d3d25504eeff10`.
+- **Tag CI:** [GitHub Actions 44883938805](https://github.com/Topbrutus/polybrutus-d42/actions/runs/44883938805), success.
+- **Durable Memoria checkpoint:** https://github.com/Topbrutus/topbrutus_one/blob/main/memoria/checkpoints/POLYBRUTUS_D42_PUBLICATION_2026-11-21.md .
+- **Publications registry:** https://github.com/Topbrutus/topbrutus_one/blob/main/memoria/projects/POLYBRUTUS_X72_PUBLICATIONS_INDEX.md .
+
 ## Scientific materials
 
 - [Exact specification](SPECIFICATION_D42.md); [constructive proof and negative controls](PREUVE_D42.md); [provenance and scientific limits](PROVENANCE.md).
