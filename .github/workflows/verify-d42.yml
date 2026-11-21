@@ -1,0 +1,27 @@
+name: Verify Polybrutus D42 exact certificate and frozen D41 archive
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+jobs:
+  exact-d42:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned exact arithmetic
+        run: python -m pip install sympy==1.14.0
+      - name: Independently verify 1,081 exact labelled distances and graph model
+        run: python src/verify_d42.py
+      - name: Independent Fraction-based verifier without Gram generator
+        run: python tests/independent_d42.py
+      - name: Verify deterministic certificate bytes
+        run: git diff --exit-code -- results/certificate_d42.json
+      - name: Verify complete frozen D41 scientific tag archive and original certificate
+        run: |
+          python -c "from pathlib import Path;from zipfile import ZipFile;import hashlib;p=Path('prior/d41/frozen_scientific_tag_v0.1.0.zip');c=Path('prior/d41/results/certificate_d41.json').read_bytes();assert hashlib.sha256(p.read_bytes()).hexdigest()=='d1abebf926052caaf171ecb19a81e23ac45926ae8686a87e42a5cf2a2bfc039e';assert hashlib.sha256(c).hexdigest()=='3f54bb52de47909707f85c134fcbba53c22137cb7c0d0321486500562c98e91a';z=ZipFile(p);assert len(z.namelist())==494 and z.testzip() is None and z.read('results/certificate_d41.json')==c"
